@@ -1,0 +1,12 @@
+const express = require('express');
+const app = express();
+
+// Vulnerable endpoint: SQL Injection
+app.get('/user', (req, res) => {
+  const userId = req.query.id;
+  const query = "SELECT * FROM users WHERE id = " + userId;
+  database.execute(query); // ❌ Unsafe
+  res.send("Query executed");
+});
+
+app.listen(3000, () => console.log("Server running"));
